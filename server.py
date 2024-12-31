@@ -20,7 +20,7 @@ app.include_router(user_router, prefix="/api")
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the FastAPI server!"}
+    return {"message": "Welcome to the Chris Iyer's first python server!"}
 
 
 # Run the server
