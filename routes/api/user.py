@@ -7,3 +7,4 @@ router = APIRouter()
 @router.post("/user")
 async def add_user(user:User):
      return await create_user(user)
+
