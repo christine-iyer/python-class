@@ -4,11 +4,11 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-MONGO_URL = os.getenv("MONGO_URL")
+MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 COLLECTION_NAME = "users"
 
-client= AsyncIOMotorClient(MONGO_URL)
+client= AsyncIOMotorClient(MONGO_URI)
 database = client[DATABASE_NAME]
 collection = database[COLLECTION_NAME]
 
