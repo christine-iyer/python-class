@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from routes.api.user import router as user_router
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from motor.motor_asyncio import AsyncIOMotorClient
+import os
 
 # Initialize the FastAPI app
 app = FastAPI()
@@ -18,9 +20,22 @@ app.add_middleware(
 # Include API routes
 app.include_router(user_router, prefix="/api")
 
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Chris Iyer's first python server!"}
+
+# MongoDB Connection Health Check
+@app.get("/health")
+async def health_check():
+    try:
+        # Check MongoDB connection
+        MONGO_URI = os.getenv("MONGO_URI")
+        client = AsyncIOMotorClient(MONGO_URI)
+        await client.admin.command("ping")  # Ping the database
+        return {"status": "Connected to MongoDB"}
+    except Exception as e:
+        return {"status": "Not connected", "error": str(e)}
 
 
 # Run the server
